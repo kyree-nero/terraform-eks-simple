@@ -6,7 +6,8 @@ spec:
   selector:
     app: app
   ports:
-    - port: 8000
-      targetPort: 80
-  externalTrafficPolicy: Local
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  externalTrafficPolicy: Cluster
   type: LoadBalancer
