@@ -4,5 +4,5 @@
 
 resource "helm_release" "simple_app" {
   name       = "simple-chart"
-  chart      = "./helm-charts/simple-helm-with-service"
+  chart      = "./helm-charts/simple-helm"
 }
