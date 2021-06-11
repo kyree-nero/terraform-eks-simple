@@ -2,7 +2,6 @@
 resource "aws_security_group" "eks_cluster_node_group" {
  name        = "EKSClusterNodeGroupSecurityGroup"
  description = "Allow TLS inbound traffic"
- #vpc_id      = data.aws_vpc.default.id
  vpc_id      = var.vpc_id
  ingress {
 
@@ -15,7 +14,6 @@ resource "aws_security_group" "eks_cluster_node_group" {
 
    # This should be restricted to only ALLOWED IP Addresses
    cidr_blocks = [var.home_cidr] # add a CIDR block here
-   # security_groups = list(var.alb_security_group_id)
 
  }
 

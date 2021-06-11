@@ -6,23 +6,15 @@
 # Uncomment to create AWS EKS cluster (Kubernetes control plane) - start
 resource "aws_eks_cluster" "this" {
  name     = var.eks-cluster-name
- #role_arn = aws_iam_role.diu-eks-cluster.arn
  role_arn = var.eks-cluster-arn
  version  = var.kubernetes-version
 
  vpc_config {
-   # subnet_ids = ["${aws_subnet.example1.id}", "${aws_subnet.example2.id}"]
-   # security_group_ids = list(aws_security_group.eks_cluster.id)
-   #subnet_ids = [for subnet in [for value in aws_subnet.this : value] : subnet.id]
    subnet_ids = [for subnet in [for value in var.subnets : value] : subnet.id]
  }
 
  # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
  # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
-#  depends_on = [
-#    aws_iam_role_policy_attachment.diu-eks-cluster-AmazonEKSClusterPolicy,
-#    aws_iam_role_policy_attachment.diu-eks-cluster-AmazonEKSServicePolicy,
-#  ]
 
   provisioner "local-exec" {
         command = "aws eks update-kubeconfig --kubeconfig ${path.cwd}/../k8s-${self.name}.yaml --name ${self.name}"
@@ -60,9 +52,7 @@ resource "aws_key_pair" "this" {
 resource "aws_eks_node_group" "this" {
  cluster_name    = aws_eks_cluster.this.name
  node_group_name = "${var.eks-cluster-name}-node-group"
- #node_role_arn   = aws_iam_role.diu-eks-cluster-node-group.arn
  node_role_arn = var.eks-cluster-node-group-arn
- #subnet_ids      = [for subnet in [for value in aws_subnet.this : value] : subnet.id]
 
 subnet_ids      = [for subnet in [for value in var.subnets : value] : subnet.id]
  instance_types = ["t3.micro"]
@@ -76,22 +66,12 @@ subnet_ids      = [for subnet in [for value in var.subnets : value] : subnet.id]
 
  remote_access {
    ec2_ssh_key               = aws_key_pair.this.key_name
-   #source_security_group_ids = list(aws_security_group.eks_cluster_node_group.id)
-   #source_security_group_ids = [aws_security_group.eks_cluster_node_group.id]
    source_security_group_ids = var.eks-worker-remote-source_security_group_ids
    
  }
 
  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
-#  depends_on = [
-#    # aws_eks_cluster.this,
-#    # aws_key_pair.this,
-#    # aws_security_group.eks_cluster_node_group,
-#    aws_iam_role_policy_attachment.diu-eks-cluster-node-group-AmazonEKSWorkerNodePolicy,
-#    aws_iam_role_policy_attachment.diu-eks-cluster-node-group-AmazonEKS_CNI_Policy,
-#    aws_iam_role_policy_attachment.diu-eks-cluster-node-group-AmazonEC2ContainerRegistryReadOnly,
-#  ]
 }
 # Uncomment to create AWS EKS cluster (Kubernetes control plane) - end
 
