@@ -1,0 +1,5 @@
+terraform.tfstate
+terraform-eks-base/.terraform.lock.hcl
+terraform-eks-base/.terraform
+terraform-eks-helm/.terraform.lock.hcl
+terraform-eks-helm/.terraform
