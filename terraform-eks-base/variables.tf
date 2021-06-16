@@ -1,5 +1,5 @@
 variable "aws_region" {
-    default = "eu-north-1"#"us-east-2"
+    type        = string
 }
 
 variable "custom_tags" {

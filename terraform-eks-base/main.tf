@@ -2,13 +2,13 @@
 
 
 
-data "aws_vpc" "default" {
-  default = "true"
-}
+# data "aws_vpc" "default" {
+#   default = "true"
+# }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
-}
+# data "aws_subnet_ids" "default" {
+#   vpc_id = data.aws_vpc.default.id
+# }
 
 data "aws_availability_zones" "default" {
   state = "available"
@@ -29,8 +29,7 @@ module "networking" {
   
   custom_tags = var.custom_tags
   eks-cluster-name = var.eks-cluster-name
-  vpc_id = data.aws_vpc.default.id
-  vpc_cidr_block = data.aws_vpc.default.cidr_block
+
 }
 
 
@@ -40,8 +39,8 @@ module "eks-networking" {
   custom_tags = var.custom_tags
   eks-cluster-name = var.eks-cluster-name
   home_cidr = var.home_cidr
-  vpc_cidr_block = data.aws_vpc.default.cidr_block
-  vpc_id = data.aws_vpc.default.id
+  vpc_cidr_block = module.networking.vpc_cidr_block
+  vpc_id = module.networking.vpc_id
 }
 
 

@@ -1,3 +1,4 @@
+aws_region = "eu-west-1"
 custom_tags = {
   Name      = "diu-eks-cluster-tag"
   Terraform = "true"
@@ -6,7 +7,7 @@ custom_tags = {
 desired_number_nodes = 2
 eks-cluster-name = "diu-eks-cluster"
 home_cidr = <REPLACE WITH YOUR HOME CIDR>
-kubernetes-version = "1.16"
+kubernetes-version = "1.18"
 max_number_nodes = 3
 min_number_nodes = 1
 ssh_public_key = "/Users/userx/key.myk3.pub"

@@ -54,7 +54,7 @@ resource "aws_eks_node_group" "this" {
  node_group_name = "${var.eks-cluster-name}-node-group"
  node_role_arn = var.eks-cluster-node-group-arn
 
-subnet_ids      = [for subnet in [for value in var.subnets : value] : subnet.id]
+ subnet_ids      = [for subnet in [for value in var.subnets : value] : subnet.id]
  instance_types = ["t3.micro"]
  tags           = var.custom_tags
 
