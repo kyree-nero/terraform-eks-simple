@@ -28,11 +28,25 @@ resource "aws_route" "simulation_default_route" {
   gateway_id             = aws_internet_gateway.this.id
 }
 
-resource "aws_subnet" "this" {
+resource "aws_subnet" "eks_public_subnets" {
  count = 3
 
  availability_zone       = data.aws_availability_zones.default.names[count.index]
  cidr_block              = cidrsubnet(aws_vpc.this.cidr_block, 8, 100 + count.index)
+ vpc_id                  = aws_vpc.this.id
+ map_public_ip_on_launch = true
+
+ tags = merge({
+   "kubernetes.io/cluster/${var.eks-cluster-name}" = "shared"
+   }
+ )
+}
+
+resource "aws_subnet" "eks_private_subnets" {
+ count = 3
+
+ availability_zone       = data.aws_availability_zones.default.names[count.index]
+ cidr_block              = cidrsubnet(aws_vpc.this.cidr_block, 7, 100 + count.index)
  vpc_id                  = aws_vpc.this.id
  map_public_ip_on_launch = true
 

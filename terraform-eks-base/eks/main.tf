@@ -10,7 +10,7 @@ resource "aws_eks_cluster" "this" {
  version  = var.kubernetes-version
 
  vpc_config {
-   subnet_ids = [for subnet in [for value in var.subnets : value] : subnet.id]
+   subnet_ids = var.private_subnets[*].id
  }
 
  # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -54,7 +54,7 @@ resource "aws_eks_node_group" "this" {
  node_group_name = "${var.eks-cluster-name}-node-group"
  node_role_arn = var.eks-cluster-node-group-arn
 
- subnet_ids      = [for subnet in [for value in var.subnets : value] : subnet.id]
+ subnet_ids = flatten([var.public_subnets[*].id, var.private_subnets[*].id])
  instance_types = ["t3.micro"]
  tags           = var.custom_tags
 

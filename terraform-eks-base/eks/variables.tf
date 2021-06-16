@@ -46,11 +46,15 @@ variable "min_number_nodes" {
   type        = number
 }
 
-variable "subnets" {
+variable "private_subnets" {
   description = "Subnets"
   type        = list
 }
 
+variable "public_subnets" {
+  description = "Subnets"
+  type        = list
+}
 
 variable "ssh_public_key_path" {
   description = "SSH public key path"

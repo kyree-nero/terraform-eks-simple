@@ -1,15 +1,5 @@
 
 
-
-
-# data "aws_vpc" "default" {
-#   default = "true"
-# }
-
-# data "aws_subnet_ids" "default" {
-#   vpc_id = data.aws_vpc.default.id
-# }
-
 data "aws_availability_zones" "default" {
   state = "available"
 }
@@ -56,7 +46,9 @@ module "eks" {
   max_number_nodes = var.max_number_nodes
   min_number_nodes = var.min_number_nodes
   ssh_public_key_path = var.ssh_public_key
-  subnets = module.networking.subnets
+  #subnets = module.networking.public_subnets
+  private_subnets = module.networking.private_subnets
+  public_subnets = module.networking.public_subnets
   tcp_ports = var.tcp_ports
 
   depends_on = [
