@@ -1,0 +1,1 @@
+This is the actual application deployment script.   Eventually i'd like to add ansible, but for now its pure terraform.  it will deploy a simple nginx to &lt;LOADBALANCERHOST&gt;/app1
