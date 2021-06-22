@@ -1,0 +1,45 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: banana-ingress
+# spec:
+#   rules:
+#   - host: ada3abbaea261421dabd20f806b8a0d9-1941692708.eu-west-1.elb.amazonaws.com
+#     http:
+#       paths:
+#         - path: /banana
+#           backend:
+#             serviceName: banana-service
+#             servicePort: 3678
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: ac33f6a3f5f0b4475b6fbc789dacb2f2-786004977.eu-west-1.elb.amazonaws.com
+      http:
+        paths:
+          - path: /app1(/|$)(.*)
+            backend:
+              serviceName: app-service
+              servicePort: 5555    
+     
+
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: app-ingress
+# spec:
+#   rules:
+#   - host: ad5003e4ba8f8447691985b59efc7b7d-2053189886.eu-west-1.elb.amazonaws.com
+#     http:
+#       paths:
+#         - path: /service1
+#           backend:
+#             serviceName: app-service
+#             servicePort: 80
+      
