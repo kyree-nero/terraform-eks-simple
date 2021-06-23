@@ -13,7 +13,17 @@ Do this
 1. to get the LBHOST run...  kubectl get services | grep ingress | grep LoadBalancer | awk -F '  +' '{print $4}'
 Note that it may take some time for the host to do what it needs to to show up.   Give it a minute if it doesn't automatically show up.
 1. run cd ../terraform-eks-helm
-1. update helm-charts/simple-ingress-by-prefix/templates/app-ingress.yaml > host to the value you just ouput in the terminal
 1. run terraform apply --auto-approve
-1. test it by running curl &lt;LBHOST&gt;/app1
+1. test it by running curl -I -H "Host: app1.xyz.com" &lt;LBHOST&gt;  
 
+You should see  ... 
+
+
+    HTTP/1.1 200 OK
+    Date: Wed, 23 Jun 2021 17:58:11 GMT
+    Content-Type: text/html
+    Content-Length: 612
+    Connection: keep-alive
+    Last-Modified: Tue, 04 Dec 2018 14:44:49 GMT
+    ETag: "5c0692e1-264"
+    Accept-Ranges: bytes
