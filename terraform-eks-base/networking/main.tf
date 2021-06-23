@@ -48,7 +48,6 @@ resource "aws_subnet" "eks_private_subnets" {
  availability_zone       = data.aws_availability_zones.default.names[count.index]
  cidr_block              = cidrsubnet(aws_vpc.this.cidr_block, 7, 100 + count.index)
  vpc_id                  = aws_vpc.this.id
- map_public_ip_on_launch = true
 
  tags = merge({
    "kubernetes.io/cluster/${var.eks-cluster-name}" = "shared"
