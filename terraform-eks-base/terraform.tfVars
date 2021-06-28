@@ -8,6 +8,7 @@ desired_number_nodes = 2
 eks-cluster-name = "diu-eks-cluster"
 home_cidr = <REPLACE WITH YOUR HOME CIDR>
 kubernetes-version = "1.19"
+kubernetes-version = "1.20"
 max_number_nodes = 3
 min_number_nodes = 1
 ssh_public_key = "/Users/userx/key.myk3.pub"
