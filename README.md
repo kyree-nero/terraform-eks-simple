@@ -10,11 +10,10 @@ Do this
 1. run cd ../terraform-eks-base-k8
 1. run terraform apply --auto-approve
 1. run the export command output as part of the last command to connect directly to the kube instance in your terminal
-1. to get the LBHOST run...  kubectl get services | grep ingress | grep LoadBalancer | awk -F '  +' '{print $4}'
-Note that it may take some time for the host to do what it needs to to show up.   Give it a minute if it doesn't automatically show up.
 1. run cd ../terraform-eks-helm
 1. run terraform apply --auto-approve
-1. test it by running curl -I -H "Host: app1.xyz.com" &lt;LBHOST&gt;  
+1. test it by running   
+    curl -I -H "Host: app1.xyz.com" $(kubectl get services | grep ingress | grep LoadBalancer | awk -F '  +' '{print $4}')
 
 You should see  ... 
 
