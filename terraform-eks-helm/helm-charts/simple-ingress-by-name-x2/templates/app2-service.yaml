@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: app2-service
+spec:
+  selector:
+    app: app2
+  ports:
+    - port: 5555 # Default port for image
+      protocol: TCP
+      targetPort: 80
