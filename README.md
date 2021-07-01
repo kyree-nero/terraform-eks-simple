@@ -13,7 +13,7 @@ Do this
 1. run cd ../terraform-eks-helm
 1. run terraform apply --auto-approve
 1. test it by running   
-    curl -I -H "Host: app1.xyz.com" $(kubectl get services | grep ingress | grep LoadBalancer | awk -F '  +' '{print $4}')
+    curl -I -H "Host: app1.xyz.com" $(kubectl get services -n ingress | grep ingress | grep LoadBalancer | awk -F '  +' '{print $4}')
 
 You should see  ... 
 

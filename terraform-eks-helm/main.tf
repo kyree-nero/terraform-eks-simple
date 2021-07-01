@@ -7,6 +7,6 @@ resource "helm_release" "simple_app" {
   #chart      = "./helm-charts/simple-helm"
   #chart      = "./helm-charts/simple-helm-with-service"
   #chart      = "./helm-charts/simple-ingress-by-prefix"
-  #chart      = "./helm-charts/simple-ingress-by-name"
-  chart      = "./helm-charts/simple-ingress-by-name-x2"  #currently you must have 3 active instances to use this
+  chart      = "./helm-charts/simple-ingress-by-name"
+  #chart      = "./helm-charts/simple-ingress-by-name-x2"  #currently you must have 3 active instances to use this
 }
