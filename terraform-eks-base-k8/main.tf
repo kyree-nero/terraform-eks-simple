@@ -5,9 +5,12 @@ module "ingress" {
 }
 
 
-# module "logging" {
-#   source = "./logging"
-# }
+module "logging" {
+  source = "./logging"
+
+  eks-cluster-name = var.eks-cluster-name
+  aws-region = var.aws-region
+}
 
 module "rbac" {
   source = "./rbac"

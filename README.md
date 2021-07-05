@@ -1,8 +1,16 @@
-Here is a terraform eks example.  There is a helm example as well driven by terraform.  
+# Terraform EKS sample 
 
-The chart that is set to deploy will put nginx out on port 80
+Here is a terraform eks example.  
 
-Do this
+There are three projects.... 
+
+1. terraform-eks-base -- deploys all the aws stuff you need  
+1. terraform-eks-base-k8 -- deploys all the k8 stuff you need on top of aws  
+1. terraform-eks-helm -- deploys what would be the app on top of that  
+
+The chart that is set to deploy will put nginx out on port 80  
+
+Steps to run the app...  
 
 1. cd terraform-eks-base
 1. add host ip cidr block to terraform.tfVars
