@@ -3,3 +3,11 @@ terraform-eks-base/.terraform.lock.hcl
 terraform-eks-base/.terraform
 terraform-eks-helm/.terraform.lock.hcl
 terraform-eks-helm/.terraform
+terraform-eks-helm/helm-charts/banana*
+terraform-eks-helm/.DS_Store
+terraform-eks-helm/helm-charts/.DS_Store
+terraform-eks-helm/helm-charts/simple-ingress-by-name/.DS_Store
+terraform-eks-helm/helm-charts/simple-ingress-by-name-x2/.DS_Store
+terraform-eks-helm/helm-charts/simple-ingress/.helmignore
+terraform-eks-base-k8/rbac/helm-charts/rbac-admin/.helmignore
+.DS_Store
