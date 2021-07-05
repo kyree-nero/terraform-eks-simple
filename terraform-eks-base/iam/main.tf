@@ -58,3 +58,10 @@ resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-AmazonEC2C
  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
  role       = aws_iam_role.diu-eks-cluster-node-group.name
 }
+
+
+resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-CloudWatchLogsFullAccess" {
+ policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+ role       = aws_iam_role.diu-eks-cluster-node-group.name
+}
+

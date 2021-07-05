@@ -39,6 +39,12 @@ variable "min_number_nodes" {
   type        = number
 }
 
+
+variable "nodes_instance_type" {
+  description = "Nodes instance type"
+  type        = string
+}
+
 variable "ssh_public_key" {
   description = "SSH public key"
   type        = string

@@ -46,6 +46,11 @@ variable "min_number_nodes" {
   type        = number
 }
 
+variable "nodes_instance_type" {
+  description = "Nodes instance type"
+  type        = string
+}
+
 variable "private_subnets" {
   description = "Subnets"
   type        = list

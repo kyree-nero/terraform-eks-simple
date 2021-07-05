@@ -45,6 +45,7 @@ module "eks" {
   kubernetes-version = var.kubernetes-version
   max_number_nodes = var.max_number_nodes
   min_number_nodes = var.min_number_nodes
+  nodes_instance_type = var.nodes_instance_type
   ssh_public_key_path = var.ssh_public_key
   #subnets = module.networking.public_subnets
   private_subnets = module.networking.private_subnets

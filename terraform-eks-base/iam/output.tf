@@ -25,3 +25,7 @@ output "eks-cluster-node-group-arn" {
 output "eks-cluster-arn" { 
     value = aws_iam_role.diu-eks-cluster.arn
 }
+
+output "eks-cluster-node-group-CloudWatchLogsFullAccess" {
+    value = aws_iam_role_policy_attachment.diu-eks-cluster-node-group-CloudWatchLogsFullAccess
+}
