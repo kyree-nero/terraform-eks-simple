@@ -26,4 +26,16 @@ To access the ui:
 
 ## Logging
 
+Configurable in the terraform variables, logging can be...    
+* off
+* fluentd
+* fluent-bit
+
+### fluentd
+
 1. Go to the cloud watch console then log &lt; log groups.  You will see a log stream called /eks/diu-eks-cluster/containers.  This currently uses fluentd
+
+### fluent-bit
+
+1. Run kubectl logs ds/fluentbit.  You shouldn't see any errors.   
+1. Go to firehose and look for the delivery stream called eks-stream.  It will update with new log files periodically.

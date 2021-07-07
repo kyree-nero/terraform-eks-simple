@@ -59,9 +59,105 @@ resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-AmazonEC2C
  role       = aws_iam_role.diu-eks-cluster-node-group.name
 }
 
+# # needed for fluentd
+# resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-CloudWatchLogsFullAccess" {
+#  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+#  role       = aws_iam_role.diu-eks-cluster-node-group.name
+# }
 
-resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-CloudWatchLogsFullAccess" {
- policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
- role       = aws_iam_role.diu-eks-cluster-node-group.name
-}
+
+# # needed for fluentbit
+# resource "aws_iam_policy" "eks_fluent_bit_daemonset_policy" {
+#   name        = "eks_fluent_bit_daemonset_policy"
+#   path        = "/"
+#   description = "TBD"
+
+#   policy = file("iam/fluentbit-daemonset-policy.json")  
+
+# }
+
+# # resource "aws_iam_policy" "eks_fluent_bit_daemonset_policy" {
+# #   name        = "eks_fluent_bit_daemonset_policy"
+# #   path        = "/"
+# #   description = "TBD"
+
+# #   policy = jsonencode(
+# # {
+# #     "Version": "2012-10-17",
+# #     "Statement": [
+# #         {
+# #             "Effect": "Allow",
+# #             "Action": [
+# #                 "firehose:PutRecordBatch"
+# #             ],
+# #             "Resource": "*"
+# #         },
+# #         {
+# #             "Effect": "Allow",
+# #             "Action": "logs:PutLogEvents",
+# #             "Resource": "arn:aws:logs:*:*:log-group:*:*:*"
+# #         },
+# #         {
+# #             "Effect": "Allow",
+# #             "Action": [
+# #                 "logs:CreateLogStream",
+# #                 "logs:DescribeLogStreams",
+# #                 "logs:PutLogEvents"
+# #             ],
+# #             "Resource": "arn:aws:logs:*:*:log-group:*"
+# #         },
+# #         {
+# #             "Effect": "Allow",
+# #             "Action": "logs:CreateLogGroup",
+# #             "Resource": "*"
+# #         }
+# #     ]
+# # }
+# #   )
+# # }
+
+# resource "aws_iam_role_policy_attachment" "diu-eks-cluster-node-group-EKSFluentBitDaemonSetPolicy" {
+#  policy_arn = aws_iam_policy.eks_fluent_bit_daemonset_policy.arn
+#  role       = aws_iam_role.diu-eks-cluster-node-group.name
+# }
+
+
+# resource "aws_iam_policy" "eks_fluent_bit_firehose_policy" {
+#   name        = "eks_fluent_bit_firehose_policy"
+#   path        = "/"
+#   description = "TBD"
+
+#   policy = templatefile(
+#     "iam/fluentbit-firehose-delivery-policy.json", 
+#     {
+#       aws_account_number = var.aws_account_number, 
+#       aws_region = var.aws_region
+#       logs_bucket_name = var.logs_bucket_name
+#     }
+#   )  
+
+# }
+
+# resource "aws_iam_role" "eks_fluent_bit_firehose_role" {
+#  name = "diu-EksClusterLoggingFirefoseRole-tf"
+
+#   assume_role_policy = <<POLICY
+# {
+#   "Version": "2012-10-17",
+#   "Statement": {
+#       "Effect": "Allow",
+#       "Principal": {
+#         "Service": "firehose.amazonaws.com"
+#       },
+#       "Action": "sts:AssumeRole"
+#   }
+# }
+
+# POLICY
+# }
+
+# resource "aws_iam_role_policy_attachment" "loggingFireHose-EKSFluentBitFirehosePolicy" {
+#  policy_arn = aws_iam_policy.eks_fluent_bit_firehose_policy.arn
+#  role       = aws_iam_role.eks_fluent_bit_firehose_role.name
+# }
 

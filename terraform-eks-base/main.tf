@@ -4,14 +4,33 @@ data "aws_availability_zones" "default" {
   state = "available"
 }
 
+data "aws_caller_identity" "current" {}
 
 
+# resource "aws_s3_bucket" "kube_logs_bucket" {
+#   bucket_prefix = "kube-logs" 
+#   acl = "private"
+# }
 
 
 module "iam" {
   source = "./iam"
-  
+
+  # aws_region = var.aws_region
+  # aws_account_number = data.aws_caller_identity.current.account_id
+  # logs_bucket_name = aws_s3_bucket.kube_logs_bucket.bucket
 }  
+
+module "logging" {
+  count = var.logging_enabled == "true" ? 1 : 0
+  source = "./logging"
+
+  aws_region = var.aws_region
+  aws_account_number = data.aws_caller_identity.current.account_id
+  eks_cluster_node_group_name = module.iam.eks-cluster-node-group-name
+  logging_type = var.logging_type
+} 
+
 
 
 module "networking" {
@@ -57,7 +76,8 @@ module "eks" {
    module.iam.eks-cluster-AmazonEKSServicePolicy,
    module.iam.eks-cluster-node-group-AmazonEKSWorkerNodePolicy,
    module.iam.eks-cluster-node-group-AmazonEKS_CNI_Policy,
-   module.iam.eks-cluster-node-group-AmazonEC2ContainerRegistryReadOnly
+   module.iam.eks-cluster-node-group-AmazonEC2ContainerRegistryReadOnly,
+   module.logging.logging-firehose-name
   ]
 }
 

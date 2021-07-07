@@ -29,6 +29,15 @@ variable "kubernetes-version" {
   type        = string
 }
 
+variable "logging_enabled" {
+  description = "logging enabled -- can be true or false"
+  type        = string
+}
+
+variable "logging_type" {
+  description = "logging type -- can be fluent-bit or fluentd"
+  type        = string
+}
 
 variable "max_number_nodes" {
   description = "Max number of Kubernetes nodes in AWS Node Group"
