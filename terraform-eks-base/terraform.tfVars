@@ -6,7 +6,7 @@ custom_tags = {
 }
 desired_number_nodes = 2 # note that eks comes baked with pod packing severly limited.  Will need to look into custom templates to get rid of this...kubectl get nodes -o json | jq '.items[].status.capacity.pods' 
 eks-cluster-name = "diu-eks-cluster"
-home_cidr = "71.105.69.209/32"
+home_cidr = <REPLACE WITH YOUR HOME CIDR>s
 logging_enabled="true"
 logging_type="fluentd"#"fluent-bit"# fluent-bit/fluentd/disabled
 kubernetes-version = "1.20"
