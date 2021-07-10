@@ -1,0 +1,10 @@
+{
+    "grafana.ini": {
+        "smtp": {
+            "enabled": true,
+            "host": "smtp.host.net:port",
+            "user": "userid",
+            "password": "password"
+        }
+    }
+}

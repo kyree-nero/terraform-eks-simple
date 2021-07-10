@@ -16,3 +16,13 @@ variable "logging_type" {
   description = "logging type -- can be fluent-bit or fluentd"
   type        = string
 }
+
+variable "k8_dash_enabled" {
+  description = "k8_dash_enabled -- can be true or false"
+  type        = string
+}
+
+variable "monitoring_enabled" {
+  description = "monitoring_enabled -- can be true or false"
+  type        = string
+}

@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"ingress","Source":"./ingress","Dir":"ingress"},{"Key":"logging","Source":"./logging","Dir":"logging"},{"Key":"dashboard","Source":"./dashboard","Dir":"dashboard"},{"Key":"rbac","Source":"./rbac","Dir":"rbac"},{"Key":"monitoring","Source":"./monitoring","Dir":"monitoring"}]}

@@ -1,9 +1,7 @@
 
-
-module "ingress" {
-  source = "./ingress"
+module "rbac" {
+  source = "./rbac"
 }
-
 
 module "logging" {
   count = var.logging_enabled == "true" ? 1 : 0
@@ -14,11 +12,17 @@ module "logging" {
   logging_type = var.logging_type
 }
 
-module "rbac" {
-  source = "./rbac"
+module "ingress" {
+  source = "./ingress"
 }
 
 module "dashboard" {
+  count = var.k8_dash_enabled == "true" ? 1 : 0
   source = "./dashboard"
   depends_on = [ module.rbac.rbac_done ]
+}
+
+module "monitoring" {
+  count = var.monitoring_enabled == "true" ? 1 : 0
+  source = "./monitoring"
 }

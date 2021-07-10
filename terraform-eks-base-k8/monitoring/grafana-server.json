@@ -1,0 +1,7 @@
+{
+    "grafana.ini": {
+        "server": {
+            "root_url": "https://grafana.dns.com/"
+        }
+    }
+}
