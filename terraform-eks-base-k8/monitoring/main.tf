@@ -1,9 +1,11 @@
 resource "helm_release" "kube-metrics" {
+  count = var.monitoring_type == "prometheus" ? 1 : 0
   name       = "kube-metrics"
   chart      = "./monitoring/helm-charts/kube-metrics" 
 }
 
 resource "kubernetes_namespace" "prometheus" {
+  count = var.monitoring_type == "prometheus" ? 1 : 0
   metadata {
     name = "prometheus"
   }
@@ -11,6 +13,7 @@ resource "kubernetes_namespace" "prometheus" {
 }
 
 resource "helm_release" "prometheus" {
+  count = var.monitoring_type == "prometheus" ? 1 : 0
   name       = "prometheus-community"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus"
@@ -21,6 +24,7 @@ resource "helm_release" "prometheus" {
 }
 
 resource "kubernetes_namespace" "grafana" {
+  count = var.monitoring_type == "prometheus" ? 1 : 0
   metadata {
     name = "grafana"
   }
@@ -28,6 +32,7 @@ resource "kubernetes_namespace" "grafana" {
 }
 
 resource "helm_release" "grafana" {
+  count = var.monitoring_type == "prometheus" ? 1 : 0
   name       = "grafana"
   namespace = "grafana"
   repository = "https://grafana.github.io/helm-charts"
@@ -102,4 +107,11 @@ resource "helm_release" "grafana" {
 
 
   depends_on = [kubernetes_namespace.grafana]
+}
+
+
+resource "helm_release" "container-insights" {
+  count = var.monitoring_type == "container-insights" ? 1 : 0
+  name       = "container-insights"
+  chart      = "./monitoring/helm-charts/container-insights" 
 }

@@ -25,4 +25,5 @@ module "dashboard" {
 module "monitoring" {
   count = var.monitoring_enabled == "true" ? 1 : 0
   source = "./monitoring"
+  monitoring_type = var.monitoring_type
 }

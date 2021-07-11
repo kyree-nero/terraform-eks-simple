@@ -26,3 +26,8 @@ variable "monitoring_enabled" {
   description = "monitoring_enabled -- can be true or false"
   type        = string
 }
+
+variable "monitoring_type" {
+  description = "monitoring_type-- can be container-insights or prometheus"
+  type        = string
+}

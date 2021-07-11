@@ -25,13 +25,7 @@ To access the ui:
 1. then kubectl proxy
 1. then navigate to this [link](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login), select token and put in the value you got above
 
-### prometheus with grafana
 
-Prometheus is a metrics server. Grafana is a metrics ui.  Together these are meant to give other dashbards into the data.  This is port-forwarding into the local for now.  
-
-1. See the service with kubectl get services -n prometheus
-1. kubectl --namespace=prometheus port-forward deploy/prometheus-community-server 9090
-1. Goto http://localhost:9090
 
 ## Logging
 
@@ -53,7 +47,9 @@ Additional reading https://aws.amazon.com/blogs/opensource/centralized-container
 
 ## Monitoring
 
-Monitoring takes a couple tools.   The combination of kube-metrics, prometheus and grafana give you a real time dashboard into your metrics.   monitoring can be enabled or disabled in terraform variables (Look for monitoring_enabled [true|false])
+Monitoring can be done with aws tooling or native kubernetes.   The aws solution application relies on fluentd (logging) while the native kubernetes solution relies on prometheus and grafana.  Either way you get real time dashboard into your metrics.   Monitoring can be enabled or disabled in terraform variables (Look for monitoring_enabled [true|false]).   The choices for monitoring type are container-insights or prometheus.   
+
+### kubernetes native
 
 ### kube-metrics
 
@@ -80,7 +76,7 @@ To the see the dashboard
 
 1. Grab the exposed service endpoint with  
 
-    terraform-eks-base-k8 % kubectl get svc -n grafana | grep LoadBalancer | awk -F '  +' '{print $4}' 
+    kubectl get svc -n grafana | grep LoadBalancer | awk -F '  +' '{print $4}' 
 
 1. navigate to that link in a browser window
 1. log in with admin,Password
@@ -88,3 +84,8 @@ To the see the dashboard
 1. Go to create > import and type 3119 (a preconfigured ots dashboard)...then import
 1. A dashboard with some metrics will appear.  its highly configurable.  You can make your own dashboards too.  A deep dive into customizing the dashboard and getting familiar w/ grafana is probably a good idea as you probe deeper.
 
+### aws container insights
+
+This is for use with fluentd.  It lays in its own cloudwatch metric originating pod(s) in the cluster, which can be displayed in cloudwatch.  See Cloudwatch &gt; Container Insights &gt; Performance Monitoring for the dashboard.
+
+<https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-view-metrics.html>
